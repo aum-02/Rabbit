@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinkjulieland</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Fredoka:wght@400;
+500;600;700&family=Mitr:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+eng: ['Fredoka'
+,
+'sans-serif'],
+thai: ['Mitr'
+,
+'sans-serif'],
+logo: ['"Alfa Slab One"'
+,
+'serif'],
+},
+colors: {
+pastel: {
+purple: '#dcb5ff'
+,
+purpleLight: '#f5eeff'
+,
+purpleDark: '#9b72cf'
+,
+blue: '#b5e3ff'
+,
+blueLight: '#ebf7ff'
+,
+pink: '#ffb5d9'
+,
+pinkLight: '#ffebf4'
+,
+yellow: '#ffeeb5'
+,
+yellowLight: '#fffcf2'
+,
+},
+kawaii: {
+bg: '#f7f3ff'
+,
+card: '#ffffff'
+,
+text: '#825e9c'
+, // Deep purple for text
+border: '#dcb5ff'
+,
+highlight: '#b27ee6'
+, // Vibrant purple
+header: '#eaddff' // สีม่วงพาสเทล (ปรับสีให ้ ชัดขึ้นนิดนึง เพื่อให ้ เห็นการไล่สีจาง
+ไปทางขวาได ้ สวยขึ้น)
+}
+},
+boxShadow: {
+'kawaii': '0 8px 24px -6px rgba(220, 181, 255, 0.4)'
+,
+'kawaii-inner': 'inset 0 2px 4px 0 rgba(220, 181, 255, 0.2)'
+,
+},
+animation: {
+'blob': 'blob 7s infinite'
+,
+'float': 'float 6s ease-in-out infinite'
+,
+'float-delayed': 'float 6s ease-in-out 3s infinite'
+,
+'gradient-x': 'gradient-x 3s ease infinite'
+,
+},
+keyframes: {
+blob: {
+'0%': { transform: 'translate(0px, 0px) scale(1)' },
+'33%': { transform: 'translate(30px,
+-50px) scale(1.1)' },
+'66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+'100%': { transform: 'translate(0px, 0px) scale(1)' }
+},
+float: {
+'0%, 100%': { transform: 'translateY(0px)' },
+'50%': { transform: 'translateY(-20px)' }
+},
+'gradient-x': {
+'0%, 100%': {
+'background-size': '200% 200%'
+,
+'background-position': 'left center'
+},
+'50%': {
+'background-size': '200% 200%'
+,
+'background-position': 'right center'
+}
+}
+}
+}
+}
+}
+</script>
+<style>
+body {
+background-color: #f7f3ff;
+background-image:
+radial-gradient(circle at top left, rgba(181, 227, 255, 0.5) 0%, transparent 40%),
+radial-gradient(circle at bottom right, rgba(255, 181, 217, 0.5) 0%, transparent
+50%),
+radial-gradient(circle at 80% 20%, rgba(255, 238, 181, 0.4) 0%, transparent 40%),
+radial-gradient(#dcb5ff 2px, transparent 2px);
+background-size: 100% 100%, 100% 100%, 100% 100%, 30px 30px;
+background-attachment: fixed;
+}
+/* ขอบสีขาวที่เนียนและเรียบร ้ อยกว่าเดิม */
+.title-stroke {
+-webkit-text-stroke: 10px white; /* ทำาขอบสีขาวหนาๆ ไว ้ เลเยอร์ล่าง (เอาเงาสีม่วงออกแล ้ ว)
+*/
+}
+.card-kawaii {
+background: rgba(255, 255, 255, 0.95);
+border: 3px solid #dcb5ff;
+border-radius: 28px;
+box-shadow: 0 10px 25px -5px rgba(220, 181, 255, 0.4);
+position: relative;
+}
+.btn-kawaii {
+background: linear-gradient(135deg, #dcb5ff 0%, #ffb5d9 100%);
+border: 2px solid #fff;
+box-shadow: 0 4px 12px rgba(220, 181, 255, 0.5);
+transition: all 0.3s ease;
+}
+.btn-kawaii:hover {
+transform: translateY(-2px) scale(1.02);
+box-shadow: 0 6px 16px rgba(220, 181, 255, 0.7);
+}
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+width: 8px;
+}
+::-webkit-scrollbar-track {
+background: #f5eeff;
+}
+::-webkit-scrollbar-thumb {
+background: #dcb5ff;
+border-radius: 10px;
+}
+.modal-overlay {
+backdrop-filter: blur(5px);
+opacity: 0;
+visibility: hidden;
+transition: all 0.3s ease;
+}
+.modal-overlay.active {
+opacity: 1;
+visibility: visible;
+}
+.modal-content {
+transform: scale(0.9);
+transition: all 0.3s ease;
+}
+.modal-overlay.active .modal-content {
+transform: scale(1);
+}
+/* Sidebar Transition */
+#sidebar {
+transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#sidebar-overlay {
+transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+</style>
+</head>
+<body class="font-thai text-kawaii-text min-h-screen relative pb-12">
+<!-- Sparkle SVG Definitions -->
+<svg width="0" height="0" class="hidden">
+<defs>
+<g id="icon-sparkle">
+<path d="M12 0C12 5.5 16.5 10 22 10C16.5 10 12 14.5 12 20C12 14.5 7.5 10 2
+10C7.5 10 12 5.5 12 0Z" fill="currentColor"/>
+</g>
+<g id="icon-heart">
+<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74
+0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55
+11.54L12 21.35z" fill="currentColor"/>
+</g>
+<g id="icon-cloud">
+<path d="M18.5 10c-
+.14 0-
+.27.01-
+.4.03C17.43 6.64 14.49 4 11 4 7.13 4 4 7.13 4
+11c0 .17.01.33.03.5A5.5 5.5 0 0 0 5.5 22h13a4.5 4.5 0 0 0 0-9z" fill="currentColor"/>
+</g>
+</defs>
+</svg>
+<!-- Background Decorations -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+<!-- Animated Blobs (Soft Glows) - Mixed Colors -->
+<div class="absolute top-[-10%] left-[-10%] w-[400px] h-[400px] bg-pastel-pink/60
+rounded-full mix-blend-overlay filter blur-[80px] animate-blob"></div>
+<div class="absolute top-[30%] right-[-15%] w-[350px] h-[350px] bg-pastel-blue/60
+rounded-full mix-blend-overlay filter blur-[80px] animate-blob" style="animation-delay:
+2s;"></div>
+<div class="absolute bottom-[-10%] left-[10%] w-[450px] h-[450px] bg-pastel-yellow/50
+rounded-full mix-blend-overlay filter blur-[100px] animate-blob" style="animation-delay:
+4s;"></div>
+<!-- Floating Elements -->
+<div class="absolute top-[15%] left-[5%] text-pastel-blue animate-float"><svg
+class="w-10 h-10" viewBox="0 0 24 24"><use href="#icon-sparkle"></use></svg></div>
+<div class="absolute top-[35%] right-[8%] text-pastel-yellow
+animate-float-delayed"><svg class="w-8 h-8" viewBox="0 0 24 24"><use
+href="#icon-sparkle"></use></svg></div>
+<div class="absolute bottom-[25%] left-[10%] text-pastel-purple/50
+animate-float-delayed"><svg class="w-12 h-12" viewBox="0 0 24 24"><use
+href="#icon-sparkle"></use></svg></div>
+<div class="absolute bottom-[15%] right-[5%] text-pastel-pink animate-float"><svg
+class="w-6 h-6" viewBox="0 0 24 24"><use href="#icon-sparkle"></use></svg></div>
+<div class="absolute top-[50%] left-[85%] text-pastel-purple/40 animate-float"
+style="animation-delay: 1s;"><svg class="w-7 h-7" viewBox="0 0 24 24"><use
+href="#icon-heart"></use></svg></div>
+<!-- Cute Clouds -->
+<div class="absolute top-[5%] right-[15%] text-white/60 animate-float-delayed"><svg
+class="w-24 h-24" viewBox="0 0 24 24"><use href="#icon-cloud"></use></svg></div>
+<div class="absolute top-[60%] left-[2%] text-white/50 animate-float"
+style="animation-delay: 2s;"><svg class="w-32 h-32" viewBox="0 0 24 24"><use
+href="#icon-cloud"></use></svg></div>
+</div>
+<!-- Navigation Overlay -->
+<div id="sidebar-overlay" class="fixed inset-0 bg-pastel-purpleDark/20 backdrop-blur-sm
+z-40 opacity-0 invisible" onclick="toggleSidebar()"></div>
+<!-- Sidebar -->
+<aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white border-r-4
+border-pastel-purple z-50 transform -translate-x-full rounded-r-3xl shadow-2xl flex flex-col">
+<div class="p-6 flex items-center justify-between border-b-2 border-pastel-purpleLight">
+<h2 class="font-eng text-2xl text-kawaii-highlight font-bold">Menu</h2>
+<button onclick="toggleSidebar()" class="text-pastel-purpleDark
+hover:text-pastel-pink focus:outline-none">
+<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+xmlns="http://www.w3.org/2000/svg">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6
+18L18 6M6 6l12 12"></path>
+</svg>
+</button>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-4 space-y-2">
+<a href="#home" onclick="toggleSidebar()" class="block px-4 py-3 rounded-2xl
+hover:bg-pastel-purpleLight text-kawaii-text font-medium transition-colors">หน ้ าแรก</a>
+<a href="#services" onclick="toggleSidebar()" class="block px-4 py-3 rounded-2xl
+hover:bg-pastel-blueLight text-kawaii-text font-medium transition-colors">บริการของเรา</a>
+<a href="#portfolio" onclick="toggleSidebar()" class="block px-4 py-3 rounded-2xl
+hover:bg-pastel-pinkLight text-kawaii-text font-medium transition-colors">ตัวอย่างผลงาน</a>
+<a href="#pricing" onclick="toggleSidebar()" class="block px-4 py-3 rounded-2xl
+hover:bg-pastel-yellowLight text-kawaii-text font-medium transition-colors">เรทราคา</a>
+<a href="#courses" onclick="toggleSidebar()" class="block px-4 py-3 rounded-2xl
+hover:bg-pastel-purpleLight text-kawaii-text font-medium transition-colors">คอร์ส & ฟอนต์
+</a>
+<a href="#goodnote" onclick="toggleSidebar()" class="block px-4 py-3 rounded-2xl
+hover:bg-pastel-blueLight text-kawaii-text font-medium transition-colors">แอป Goodnote</a>
+<a href="#contact" onclick="toggleSidebar()" class="block px-4 py-3 rounded-2xl
+hover:bg-pastel-pinkLight text-kawaii-text font-medium transition-colors">ติดต่อเรา</a>
+</nav>
+<div class="p-4 border-t-2 border-pastel-purpleLight text-center text-sm
+text-pastel-purpleDark">
+<svg class="w-5 h-5 inline-block mr-1 text-pastel-pink" viewBox="0 0 24 24"><use
+href="#icon-heart"></use></svg>
+Pinkjulieland
+</div>
+</aside>
+<!-- Top Bar with Hamburger -->
+<div class="absolute top-0 left-0 right-0 p-4 z-30 flex justify-between items-start
+pointer-events-none">
+<button onclick="toggleSidebar()" class="pointer-events-auto bg-white/90 backdrop-blur
+border-2 border-pastel-purple text-kawaii-highlight p-3 rounded-2xl shadow-kawaii
+hover:bg-pastel-purpleLight transition-colors focus:outline-none">
+<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4
+6h16M4 12h16M4 18h16"></path>
+</svg>
+</button>
+</div>
+<!-- Main Container -->
+<main class="max-w-lg mx-auto pt-20 px-4 space-y-8">
+<!-- Header Section -->
+<section id="home" class="text-center relative pt-8 pb-4">
+<div class="absolute top-0 left-10 text-white opacity-80 animate-pulse w-8 h-8"><svg
+viewBox="0 0 24 24"><use href="#icon-sparkle"></use></svg></div>
+<div class="absolute top-10 right-8 text-white opacity-80 animate-pulse w-6 h-6"
+style="animation-delay: 1s;"><svg viewBox="0 0 24 24"><use
+href="#icon-sparkle"></use></svg></div>
+<!-- ใช ้ เทคนิค Grid เพื่อบังคับให ้ ข ้ อความ 2 ชั้นซ ้ อนทับกันพอดีเป ๊ ะ ไม่มีทางบั๊กหรือเคลื่อน
+-->
+<div class="grid place-items-center mb-2">
+<!-- ขอบสีขาวและเงา (เลเยอร์ล่างสุด) -->
+<h1 class="col-start-1 row-start-1 font-logo text-5xl md:text-6xl text-white
+title-stroke font-normal tracking-wide leading-tight pointer-events-none"
+aria-hidden="true">Pinkjulieland</h1>
+<!-- สีตัวอักษรไล่ระดับ (เลเยอร์บนสุด) จะมาทับปิดรอยหยักด ้ านในพอดี -->
+<h1 class="col-start-1 row-start-1 font-logo text-5xl md:text-6xl bg-gradient-to-r
+from-kawaii-highlight via-pastel-pink to-pastel-blue text-transparent bg-clip-text
+animate-gradient-x font-normal tracking-wide leading-tight z-10">Pinkjulieland</h1>
+</div>
+<p class="font-eng text-xl text-pastel-purpleDark font-medium tracking-wide
+mt-1">Welcome to my shop</p>
+<div class="mt-6 flex justify-center">
+<div class="bg-white/70 px-6 py-2 rounded-full border border-pastel-purple
+inline-flex items-center space-x-2 text-sm text-pastel-purpleDark shadow-sm
+backdrop-blur-sm">
+<svg class="w-4 h-4 text-pastel-pink" viewBox="0 0 24 24"><use
+href="#icon-heart"></use></svg>
+<span>เปิดให ้ บริการแล ้ ว</span>
+</div>
+</div>
+</section>
+<!-- Intro Box -->
+<section class="card-kawaii p-6 text-center">
+<p class="text-lg mb-2">ร ้ านจูรับทำาเว็บไซต์ครบวงจร</p>
+<p class="text-lg mb-4">และจำาหน่ายแอป Goodnote ทุกรูปแบบ</p>
+<div class="inline-block bg-pastel-purpleLight text-kawaii-highlight px-6 py-2
+rounded-full font-medium text-xl border border-pastel-purple">
+เริ่มต ้ นเพียง 20.
+- เท่านั้น
+</div>
+</section>
+<!-- Services -->
+<section id="services" class="card-kawaii p-6">
+<!-- Header แบบใหม่ -->
+<div class="flex items-center bg-gradient-to-r from-kawaii-header to-transparent
+border-l-[6px] border-pastel-pink rounded-r-xl py-2.5 px-4 mb-5 shadow-sm">
+<span class="text-[20px] mr-3 shrink-0">🎨</span>
+<div class="flex items-baseline flex-wrap gap-x-2 mt-0.5">
+<h2 class="font-thai text-lg font-bold text-kawaii-text m-0">งานที่รับทำา</h2>
+<span class="font-thai text-[13px] text-pastel-purpleDark opacity-80">- เพิ่มเติม
+สอบถามได ้ ค่ะ -</span>
+</div>
+</div>
+<ul class="space-y-3 mb-6">
+<li class="flex items-start gap-3 bg-pastel-purpleLight p-3 rounded-xl border
+border-pastel-purple/40">
+<div class="mt-1 w-2 h-2 rounded-full bg-pastel-purple flex-shrink-0"></div>
+<span>เว็บเรทราคาแอปพรีเมียม</span>
+</li>
+<li class="flex items-start gap-3 bg-pastel-blueLight p-3 rounded-xl border
+border-pastel-blue/40">
+<div class="mt-1 w-2 h-2 rounded-full bg-pastel-blue flex-shrink-0"></div>
+<span>เว็บเรทราคารับเติมเกมส์</span>
+</li>
+<li class="flex items-start gap-3 bg-pastel-pinkLight p-3 rounded-xl border
+border-pastel-pink/40">
+<div class="mt-1 w-2 h-2 rounded-full bg-pastel-pink flex-shrink-0"></div>
+<span>เว็บเรทราคารับทำาป้าย</span>
+</li>
+<li class="flex items-start gap-3 bg-pastel-yellowLight p-3 rounded-xl border
+border-pastel-yellow/60">
+<div class="mt-1 w-2 h-2 rounded-full bg-pastel-yellow flex-shrink-0"></div>
+<span>เว็บอื่น ๆ สอบถามเพิ่มเติมได ้ </span>
+</li>
+</ul>
+<div class="text-center text-sm text-pastel-purpleDark bg-white border
+border-pastel-purple/50 p-4 rounded-2xl shadow-kawaii-inner">
+<p class="mb-1 text-kawaii-highlight font-medium">✨ เว็บสามารถใส่ข ้ อมูลได ้ ไม่
+จำากัด ✨</p>
+<p>อยากให ้ มีอะไรบนหน ้ าเว็บ แจ ้ งได ้ เลย<br>ทางร ้ านออกแบบจัดวางให ้ ฟรี!</p>
+</div>
+</section>
+<!-- Portfolio Popups -->
+<section id="portfolio" class="card-kawaii p-6 text-center">
+<!-- Header แบบใหม่ -->
+<div class="flex items-center bg-gradient-to-r from-kawaii-header to-transparent
+border-l-[6px] border-pastel-blue rounded-r-xl py-2.5 px-4 mb-6 shadow-sm text-left">
+<span class="text-[20px] mr-3 shrink-0">✨</span>
+<div class="flex items-baseline flex-wrap gap-x-2 mt-0.5">
+<h2 class="font-thai text-lg font-bold text-kawaii-text m-0">ตัวอย่างผลงาน</h2>
+<span class="font-thai text-[13px] text-pastel-purpleDark opacity-80">- คลิกดู
+ตามหมวดหมู่ -</span>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<button onclick="openModal('modal-bright')" class="btn-kawaii text-white py-3 px-6
+rounded-full font-medium text-lg flex items-center justify-center gap-2" style="background:
+linear-gradient(135deg, #ffeeb5 0%, #ffb5d9 100%);">
+<svg class="w-5 h-5 text-white" viewBox="0 0 24 24"><use
+href="#icon-sparkle"></use></svg>
+โทนสดใส
+</button>
+<button onclick="openModal('modal-dark')" class="btn-kawaii text-white py-3 px-6
+rounded-full font-medium text-lg flex items-center justify-center gap-2" style="background:
+linear-gradient(135deg, #b5e3ff 0%, #9b72cf 100%);">
+<svg class="w-5 h-5 text-white" viewBox="0 0 24 24"><use
+href="#icon-sparkle"></use></svg>
+โทนมืด
+</button>
+<button onclick="openModal('modal-pastel')" class="btn-kawaii text-white py-3
+px-6 rounded-full font-medium text-lg flex items-center justify-center gap-2"
+style="background: linear-gradient(135deg, #dcb5ff 0%, #b5e3ff 100%);">
+<svg class="w-5 h-5 text-white" viewBox="0 0 24 24"><use
+href="#icon-heart"></use></svg>
+โทนพาสเทล
+</button>
+</div>
+</section>
+<!-- Pricing & Details -->
+<section id="pricing" class="card-kawaii p-6">
+<!-- Header แบบใหม่ -->
+<div class="flex items-center bg-gradient-to-r from-kawaii-header to-transparent
+border-l-[6px] border-pastel-yellow rounded-r-xl py-2.5 px-4 mb-6 shadow-sm">
+<span class="text-[20px] mr-3 shrink-0">💰</span>
+<div class="flex items-baseline flex-wrap gap-x-2 mt-0.5">
+<h2 class="font-thai text-lg font-bold text-kawaii-text m-0">เรทราคา</h2>
+<span class="font-thai text-[13px] text-pastel-purpleDark opacity-80">- ประเมิน
+ราคาก่อนทำาได ้ ค่ะ -</span>
+</div>
+</div>
+<div class="bg-pastel-purpleLight p-4 rounded-2xl border border-pastel-purple/50
+mb-5 text-center">
+<p class="text-pastel-purpleDark font-medium mb-1">ราคาเริ่มต ้ น</p>
+<p class="text-3xl font-eng text-kawaii-highlight font-bold mb-1">129.
+-</p>
+<p class="text-xs text-pastel-purpleDark/70">(ไม่เกิน 200 lines + ใส่โลโก ้ อย่างเดียว)
+</p>
+</div>
+<div class="space-y-4 text-sm">
+<div>
+<h3 class="font-bold text-pastel-purpleDark mb-2 bg-white border
+border-pastel-purple/30 inline-block px-3 py-1 rounded-full text-xs shadow-sm">รายละเอียด
+เพิ่ม</h3>
+<ul class="space-y-1 ml-2">
+<li>• เกิน 200 lines <span class="text-kawaii-highlight font-medium">→
+139.
+-</span></li>
+<li>• เกิน 400 lines <span class="text-kawaii-highlight font-medium">→
+189.
+-</span></li>
+<li>• เกิน 600 lines <span class="text-kawaii-highlight font-medium">→
+249.
+-</span></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-pastel-blue mb-2 bg-white border
+border-pastel-blue/30 inline-block px-3 py-1 rounded-full text-xs shadow-sm">Add-on</h3>
+<p class="ml-2">• แบนเนอร์ 1–2 รูป <span class="text-pastel-blue
+font-bold">+29.
+-</span></p>
+</div>
+<div>
+<h3 class="font-bold text-pastel-pink mb-2 bg-white border
+border-pastel-pink/30 inline-block px-3 py-1 rounded-full text-xs shadow-sm">การแก ้ ไขงาน
+</h3>
+<ul class="space-y-1 ml-2">
+<li>• แก ้ ไขฟรี 1 ครั้ง</li>
+<li>• แก ้ ข ้ อความ จุดละ <span class="text-pastel-pink
+font-bold">5.
+-</span></li>
+<li>• เปลี่ยนรูป จุดละ <span class="text-pastel-pink font-bold">29.
+-</span></li>
+</ul>
+</div>
+</div>
+<p class="text-center text-xs text-pastel-purpleDark/60 mt-4">* ราคาขึ้นอยู่กับปริมาณ
+และรายละเอียดของงาน</p>
+<!-- Promotion -->
+<div class="mt-6 bg-gradient-to-br from-pastel-purpleLight to-pastel-blueLight
+border-2 border-pastel-blue/40 p-5 rounded-2xl shadow-sm relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-16 h-16 text-pastel-purple opacity-40"><svg
+viewBox="0 0 24 24"><use href="#icon-sparkle"></use></svg></div>
+<h3 class="font-eng text-xl font-bold text-kawaii-highlight mb-3
+text-center">Promotion</h3>
+<p class="text-center text-lg font-bold text-kawaii-text mb-3">3 เว็บ ราคา <span
+class="text-2xl text-pastel-purpleDark">359.
+-</span></p>
+<ul class="text-sm space-y-2 ml-2 text-kawaii-text">
+<li>• เว็บที่ 1 Portfolio แนะนำาตัว</li>
+<li>• เว็บที่ 2 ป้ายบัญชี (คัดลอกเลขได ้ )</li>
+<li>• เว็บที่ 3 เลือกเทมเพลตได ้ </li>
+</ul>
+</div>
+</section>
+<!-- Process & Rules -->
+<section class="card-kawaii p-6">
+<!-- Header แบบใหม่ -->
+<div class="flex items-center bg-gradient-to-r from-kawaii-header to-transparent
+border-l-[6px] border-pastel-purple rounded-r-xl py-2.5 px-4 mb-6 shadow-sm">
+<span class="text-[20px] mr-3 shrink-0">📝</span>
+<div class="flex items-baseline flex-wrap gap-x-2 mt-0.5">
+<h2 class="font-thai text-lg font-bold text-kawaii-text m-0">ขั้นตอนการสั่งทำา</h2>
+<span class="font-thai text-[13px] text-pastel-purpleDark opacity-80">- อ่านราย
+ละเอียดก่อนสั่ง -</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-6">
+<div class="bg-pastel-purpleLight p-3 rounded-xl border border-pastel-purple/30
+text-center">
+<div class="w-8 h-8 bg-white text-pastel-purpleDark rounded-full flex
+items-center justify-center font-eng font-bold mx-auto mb-2 shadow-sm">1</div>
+<p class="text-xs">ส่งรายละเอียดร ้ าน<br>(ใส่ได ้ ไม่จำากัด)</p>
+</div>
+<div class="bg-pastel-blueLight p-3 rounded-xl border border-pastel-blue/30
+text-center">
+<div class="w-8 h-8 bg-white text-pastel-blue rounded-full flex items-center
+justify-center font-eng font-bold mx-auto mb-2 shadow-sm">2</div>
+<p class="text-xs">แนบตัวอย่าง + โลโก ้ <br>(Google Drive)</p>
+</div>
+<div class="bg-pastel-pinkLight p-3 rounded-xl border border-pastel-pink/30
+text-center">
+<div class="w-8 h-8 bg-white text-pastel-pink rounded-full flex items-center
+justify-center font-eng font-bold mx-auto mb-2 shadow-sm">3</div>
+<p class="text-xs">ชำาระเงินเริ่มต ้ น<br>129.
+-</p>
+</div>
+<div class="bg-pastel-yellowLight p-3 rounded-xl border border-pastel-yellow/60
+text-center">
+<div class="w-8 h-8 bg-white text-yellow-500 rounded-full flex items-center
+justify-center font-eng font-bold mx-auto mb-2 shadow-sm">4</div>
+<p class="text-xs">รอรับลิงก์<br>ใช ้ งานได ้ เลย</p>
+</div>
+</div>
+<div class="space-y-4 text-sm">
+<div>
+<h3 class="font-bold text-pastel-purpleDark mb-2 flex items-center gap-1">
+<svg class="w-4 h-4 text-pastel-yellow" viewBox="0 0 24 24"><use
+href="#icon-sparkle"></use></svg> ระยะเวลา & เงื่อนไข
+</h3>
+<ul class="space-y-1 ml-4 list-disc text-kawaii-text marker:text-pastel-purple">
+<li>ใช ้ เวลา 4–8 ชั่วโมง</li>
+<li>งานเร่ง คิด x2</li>
+<li>แนะนำาให ้ ส่งเรฟก่อนทำา</li>
+<li>ตรวจงานภายใน 30 นาที</li>
+</ul>
+<p class="mt-2 text-center bg-white p-2 rounded-lg border border-pastel-
+purple/30">ออกแบบใหม่ (ไม่ใช ้ เทมเพลต) <span class="font-bold
+text-kawaii-highlight">+200.
+-</span></p>
+</div>
+<div class="bg-red-50/80 p-4 rounded-xl border border-red-200">
+<h3 class="font-bold text-red-400 mb-2">กฎของร ้ าน (Rules)</h3>
+<ul class="space-y-1 ml-4 list-disc text-red-400/90 marker:text-red-300 text-xs">
+<li>โอนแล ้ วไม่คืนเงินทุกกรณี</li>
+<li>ยกเลิกหลังตรวจงาน ไม่คืนเงิน</li>
+<li>อาจมีการเปลี่ยนลิงก์ในอนาคต</li>
+<li>ไม่รับผิดชอบกรณีเปลี่ยนโดเมน</li>
+<li>งดเร่งงาน</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Courses & Fonts -->
+<section id="courses" class="card-kawaii p-6">
+<!-- Header แบบใหม่ -->
+<div class="flex items-center bg-gradient-to-r from-kawaii-header to-transparent
+border-l-[6px] border-pastel-pink rounded-r-xl py-2.5 px-4 mb-6 shadow-sm">
+<span class="text-[20px] mr-3 shrink-0">📚</span>
+<div class="flex items-baseline flex-wrap gap-x-2 mt-0.5">
+<h2 class="font-thai text-lg font-bold text-kawaii-text m-0">คอร์ส & ฟอนต์</h2>
+<span class="font-thai text-[13px] text-pastel-purpleDark opacity-80">- สอน
+ทำาเว็บและแจกฟอนต์ -</span>
+</div>
+</div>
+<!-- Course -->
+<div class="bg-pastel-purpleLight rounded-2xl p-4 border border-pastel-purple/40
+mb-6">
+<h3 class="font-bold text-kawaii-highlight text-center mb-2">คอร์สสอนทำา "เว็บร ้ าน"
+สไตล์พิ้งจู</h3>
+<p class="text-center text-xs text-pastel-purpleDark mb-3">จาก 0 → ทำาเว็บใช ้ งาน
+ได ้ จริง<br>ไม่ต ้ องมีพื้นฐาน สอนครบทุกขั้นตอน</p>
+<div class="bg-white p-3 rounded-xl mb-3 text-sm">
+<p class="font-medium text-kawaii-highlight mb-1">สิ่งที่จะได ้ รับ:</p>
+<ul class="ml-4 list-disc marker:text-pastel-purple text-kawaii-text">
+<li>คลิปสอนละเอียด</li>
+<li>โน ้ ตสรุป + ทริค</li>
+<li>เทมเพลตเว็บ 50+ แบบ</li>
+</ul>
+</div>
+<div class="flex justify-between items-center px-2">
+<p class="font-bold text-kawaii-highlight">ราคา 459.
+- <span class="text-xs
+font-normal text-pastel-purpleDark">(ตลอดชีพ)</span></p>
+<div class="space-x-2">
+<a
+href="https://drive.google.com/drive/folders/1fj024BhkgC1ctJeiwyZUG3USteSdzWzr"
+target="
+_
+blank" class="text-xs bg-white border border-pastel-purple/50
+text-pastel-purpleDark px-3 py-1 rounded-full hover:bg-pastel-purpleLight transition">ตัวอย่าง
+</a>
+<a href="https://purple-wind-aced.cozyw75.workers.dev/" target="
+blank"
+_
+class="text-xs bg-white border border-pastel-purple/50 text-pastel-purpleDark px-3 py-1
+rounded-full hover:bg-pastel-purpleLight transition">กฎคอร์ส</a>
+</div>
+</div>
+</div>
+<!-- Fonts -->
+<div class="border-t-2 border-dashed border-pastel-purple/50 pt-5">
+<h3 class="font-bold text-kawaii-highlight text-center mb-3">จำาหน่ายฟอนต์</h3>
+<div class="flex justify-center mb-4">
+<a
+href="https://drive.google.com/drive/folders/1y4siEIS7i8XjYICoxJ
+_
+-fJH9ffywo92L"
+target="
+_
+blank" class="bg-pastel-pinkLight border border-pastel-pink/50 text-pastel-pink px-4
+py-2 rounded-full text-sm font-medium hover:bg-pastel-pink transition">
+คลิกดูตัวอย่างฟอนต์
+</a>
+</div>
+<div class="bg-white p-4 rounded-xl border border-pastel-purple/30 text-sm">
+<p class="font-bold text-pastel-purpleDark mb-2">วิธีสั่งซื้อฟอนต์:</p>
+<ol class="list-decimal ml-4 space-y-1 text-kawaii-text">
+<li>เลือกฟอนต์</li>
+<li>แจ ้ งสิทธิ์การใช ้ งาน</li>
+<li>ชำาระเงิน + ส่ง Gmail</li>
+<li>รับไฟล์</li>
+</ol>
+</div>
+</div>
+</section>
+<!-- Goodnote App -->
+<section id="goodnote" class="card-kawaii p-6">
+<!-- Header แบบใหม่ -->
+<div class="flex items-center bg-gradient-to-r from-kawaii-header to-transparent
+border-l-[6px] border-pastel-blue rounded-r-xl py-2.5 px-4 mb-6 shadow-sm">
+<span class="text-[20px] mr-3 shrink-0">📓</span>
+<div class="flex items-baseline flex-wrap gap-x-2 mt-0.5">
+<h2 class="font-thai text-lg font-bold text-kawaii-text m-0">แอป Goodnote</h2>
+<span class="font-thai text-[13px] text-pastel-purpleDark opacity-80">- ใช ้ งาน
+แบบพรีเมียมยาวๆ -</span>
+</div>
+</div>
+<div class="space-y-3">
+<!-- iOS Special -->
+<div class="border border-pastel-purple/40 rounded-xl p-3 flex justify-between
+items-center bg-white">
+<div>
+<p class="font-bold text-kawaii-text">รุ่นพิเศษ (ถาวร) – iOS</p>
+<p class="text-xs text-pastel-purpleDark/80 mt-1">เมลรวม <span
+class="font-medium text-kawaii-highlight">20.
+-</span> | หาร 5 คน <span class="font-medium
+text-kawaii-highlight">149.
+-</span></p>
+</div>
+<div class="text-right">
+<p class="text-xs text-pastel-purpleDark/80">ส่วนตัว</p>
+<p class="font-bold text-kawaii-highlight text-lg">490.
+-</p>
+</div>
+</div>
+<!-- Essential -->
+<div class="border border-pastel-blue/40 rounded-xl p-3 flex justify-between
+items-center bg-white">
+<div>
+<p class="font-bold text-kawaii-text">Essential (รายป ี )</p>
+<p class="text-xs text-pastel-purpleDark/80 mt-1">หาร 5 คน <span
+class="font-medium text-kawaii-highlight">79.
+-</span></p>
+</div>
+<div class="text-right">
+<p class="text-xs text-pastel-purpleDark/80">ส่วนตัว</p>
+<p class="font-bold text-kawaii-highlight text-lg">229.
+-</p>
+</div>
+</div>
+<!-- Pro -->
+<div class="border border-pastel-pink/40 rounded-xl p-3 flex justify-between
+items-center bg-white">
+<div>
+<p class="font-bold text-kawaii-text">Pro (รายป ี )</p>
+<p class="text-xs text-pastel-purpleDark/80 mt-1">หาร 5 คน <span
+class="font-medium text-kawaii-highlight">149.
+-</span></p>
+</div>
+<div class="text-right">
+<p class="text-xs text-pastel-purpleDark/80">ส่วนตัว</p>
+<p class="font-bold text-kawaii-highlight text-lg">490.
+-</p>
+</div>
+</div>
+</div>
+<p class="text-center text-xs text-pastel-purpleDark/80 mt-4 bg-pastel-purpleLight
+p-2 rounded-lg">
+</p>
+</section>
+* แนะนำาใช ้ แบบส่วนตัว หากใช ้ Android / Windows / Web
+<!-- Contact (Clean minimal theme SVG) -->
+<section id="contact" class="card-kawaii p-6 text-center">
+<!-- Header แบบใหม่ -->
+<div class="flex items-center bg-gradient-to-r from-kawaii-header to-transparent
+border-l-[6px] border-pastel-purple rounded-r-xl py-2.5 px-4 mb-6 shadow-sm text-left">
+<span class="text-[20px] mr-3 shrink-0">💬</span>
+<div class="flex items-baseline flex-wrap gap-x-2 mt-0.5">
+<h2 class="font-thai text-lg font-bold text-kawaii-text m-0">ช่องทางการติดต่อ
+</h2>
+<span class="font-thai text-[13px] text-pastel-purpleDark opacity-80">- ทักมาส
+อบถามได ้ เลย -</span>
+</div>
+</div>
+<div class="flex justify-center gap-4">
+<!-- Facebook -->
+<a href="https://www.facebook.com/profile.php?id=61554192600355"
+target="
+_
+blank" class="group flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-pastel-blueLight rounded-full flex items-center
+justify-center border-2 border-pastel-blue/50 group-hover:bg-pastel-blue
+group-hover:border-pastel-blue transition-all">
+<svg class="w-6 h-6 text-pastel-blue group-hover:text-white transition-colors"
+viewBox="0 0 24 24" fill="currentColor">
+<path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44
+9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19
+2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-
+.45 2.9h-2.33v7a10 10 0
+008.44-9.9c0-5.53-4.5-10.02-10-10.02z"/>
+</svg>
+</div>
+<span class="text-xs text-pastel-purpleDark font-medium">Facebook</span>
+</a>
+<!-- Line -->
+<a href="https://lin.ee/t0qYbAl" target="
+_
+blank" class="group flex flex-col
+items-center gap-1">
+<div class="w-12 h-12 bg-pastel-pinkLight rounded-full flex items-center
+justify-center border-2 border-pastel-pink/50 group-hover:bg-pastel-pink
+group-hover:border-pastel-pink transition-all">
+<svg class="w-6 h-6 text-pastel-pink group-hover:text-white transition-colors"
+viewBox="0 0 24 24" fill="currentColor">
+<path d="M21.4 10.3c0-4.3-4.2-7.8-9.4-7.8S2.6 6 2.6 10.3c0 3.8 3.3 7 7.7
+7.7.3 0 .7.1.8.4l-
+.3 1.9c0 .1 0 .2.1.3s.2.1.3 0c1.7-1 6-3.6 7.6-5.5 1.7-1.7 2.6-3.4
+2.6-4.8zm-13.6 2c-
+.3 0-
+.6-
+.3-
+.6-
+.6V8.9c0-
+.3.3-
+.6.6-
+.6s.6.3.6.6v2.1h1.5c.3 0
+.6.3.6.6s-
+.3.6-
+.6.6H7.8zm4.4 0c-
+.3 0-
+.6-
+.3-
+.6-
+.6V8.9c0-
+.3.3-
+.6.6-
+.6s.6.3.6.6v2.8c0
+.3-
+.3.6-
+.6.6zm3.3-1.6l-1.4-1.4c-
+.1-
+.1-
+.2-
+.2-
+.4-
+.2-
+.3 0-
+.6.3-
+.6.6v2.8c0
+.3.3.6.6.6s.6-
+.3.6-
+.6v-1.9l1.4 1.4c.1.1.2.2.4.2.3 0
+.6-
+.3.6-
+.6V8.9c0-
+.3-
+.3-
+.6-
+.6-
+.6s-
+.6.3-
+.6.6v1.8z"/>
+</svg>
+</div>
+</a>
+<span class="text-xs text-pastel-purpleDark font-medium">Line</span>
+<!-- Instagram -->
+<a href="https://www.instagram.com/pinkjulie.land" target="
+_
+blank" class="group
+flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-pastel-purpleLight rounded-full flex items-center
+justify-center border-2 border-pastel-purple/50 group-hover:bg-pastel-purple
+group-hover:border-pastel-purple transition-all">
+<svg class="w-6 h-6 text-pastel-purple group-hover:text-white
+transition-colors" viewBox="0 0 24 24" fill="currentColor">
+<path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25
+2.22.41.56.22.96.48 1.36.88.4.4.66.8.88 1.36.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07
+4.85s-
+.01 3.58-
+.07 4.85c-
+.05 1.17-
+.25 1.8-
+.41 2.22-
+.22.56-
+.48.96-
+.88
+1.36-
+.4.4-
+.8.66-1.36.88-
+.42.16-1.05.36-2.22.41-1.27.06-1.65.07-4.85.07s-3.58-
+.01-4.85-
+.07c-
+1.17-
+.05-1.8-
+.25-2.22-
+.41-
+.56-
+.22-
+.96-
+.48-1.36-
+.88-
+.4-
+.4-
+.66-
+.8-
+.88-1.36-
+.16-
+.42-
+.36-1.05-
+.41-
+2.22-
+.06-1.27-
+.07-1.65-
+.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-
+.56.48-
+.96.88-
+1.36.4-
+.4.8-
+.66 1.36-
+.88.42-
+.16 1.05-
+.36 2.22-
+.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0
+8.33.01 7.05.07c-1.27.06-2.14.26-2.9.56-
+.78.3-1.44.73-2.1 1.39-
+.66.66-1.09 1.32-1.39
+2.1-
+.3.76-
+.5 1.63-
+.56 2.9C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.14.56
+2.9.3.78.73 1.44 1.39 2.1.66.66 1.32 1.09 2.1 1.39.76.3 1.63.5 2.9.56 1.28.06 1.69.07
+4.95.07s3.67-
+.01 4.95-
+.07c1.27-
+.06 2.14-
+.26 2.9-
+.56.78-
+.3 1.44-
+.73 2.1-1.39.66-
+.66 1.09-1.32
+1.39-2.1.3-
+.76.5-1.63.56-2.9.06-1.28.07-1.69.07-4.95s-
+.01-3.67-
+.07-4.95c-
+.06-1.27-
+.26-2.14-
+.56-2.9-
+.3-
+.78-
+.73-1.44-1.39-2.1-
+.66-
+.66-1.32-1.09-2.1-1.39-
+.76-
+.3-1.63-
+.5-2.9-
+.56C15.67.01
+15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116
+12a4 4 0 01-4 4zm5.8-9.66a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+</svg>
+</div>
+<span class="text-xs text-pastel-purpleDark font-medium">Instagram</span>
+</a>
+</div>
+</section>
+<!-- Footer -->
+<footer class="text-center text-pastel-purpleDark/60 text-xs pb-6">
+<p>&copy; 2024 Pinkjulieland. All rights reserved.
+</p>
+</footer>
+</main>
+<!-- Modals Container -->
+<!-- Modal: โทนสดใส -->
+<div id="modal-bright" class="modal-overlay fixed inset-0 bg-pastel-purpleDark/40 z-50
+flex items-center justify-center p-4">
+<div class="modal-content card-kawaii w-full max-w-sm p-6 relative">
+<button onclick="closeModal('modal-bright')" class="absolute -top-3 -right-3 bg-white
+border-2 border-pastel-yellow text-pastel-yellow rounded-full w-8 h-8 flex items-center
+justify-center shadow-md hover:bg-pastel-yellowLight focus:outline-none">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path
+stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12
+12"></path></svg>
+</button>
+<h3 class="font-eng text-xl text-center text-kawaii-highlight font-bold mb-4 flex
+items-center justify-center gap-2">
+<svg class="w-4 h-4 text-pastel-yellow" viewBox="0 0 24 24"><use
+href="#icon-sparkle"></use></svg> โทนสดใส
+</h3>
+<div class="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+<a href="https://jeans.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-yellowLight hover:bg-white rounded-xl border
+border-pastel-yellow/50 text-pastel-purpleDark transition">V.1 (Jeans)</a>
+<a href="https://playing.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-yellowLight hover:bg-white rounded-xl border
+border-pastel-yellow/50 text-pastel-purpleDark transition">V.2 (Playing)</a>
+<a href="https://note.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-yellowLight hover:bg-white rounded-xl border
+border-pastel-yellow/50 text-pastel-purpleDark transition">V.3 (Note)</a>
+<a href="https://sodsai.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-yellowLight hover:bg-white rounded-xl border
+border-pastel-yellow/50 text-pastel-purpleDark transition">V.4 (Sodsai)</a>
+</div>
+</div>
+</div>
+<!-- Modal: โทนมืด -->
+<div id="modal-dark" class="modal-overlay fixed inset-0 bg-pastel-purpleDark/40 z-50 flex
+items-center justify-center p-4">
+<div class="modal-content card-kawaii w-full max-w-sm p-6 relative">
+<button onclick="closeModal('modal-dark')" class="absolute -top-3 -right-3 bg-white
+border-2 border-pastel-blue text-pastel-blue rounded-full w-8 h-8 flex items-center
+justify-center shadow-md hover:bg-pastel-blueLight focus:outline-none">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path
+stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12
+12"></path></svg>
+</button>
+<h3 class="font-eng text-xl text-center text-kawaii-highlight font-bold mb-4 flex
+items-center justify-center gap-2">
+<svg class="w-4 h-4 text-pastel-blue" viewBox="0 0 24 24"><use
+href="#icon-sparkle"></use></svg> โทนมืด
+</h3>
+<div class="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+<a href="https://pinkdark.cozyw75.workers.dev/" target="
+blank" class="block
+_
+w-full text-center py-2 px-4 bg-pastel-blueLight hover:bg-white rounded-xl border
+border-pastel-blue/50 text-pastel-purpleDark transition">V.1 (Pinkdark)</a>
+<a href="https://pinkblue.cozyw75.workers.dev/" target="
+blank" class="block
+_
+w-full text-center py-2 px-4 bg-pastel-blueLight hover:bg-white rounded-xl border
+border-pastel-blue/50 text-pastel-purpleDark transition">V.2 (Pinkblue)</a>
+<a href="https://dd3.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-blueLight hover:bg-white rounded-xl border
+border-pastel-blue/50 text-pastel-purpleDark transition">V.3 (DD3)</a>
+<a href="https://jugame.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-blueLight hover:bg-white rounded-xl border
+border-pastel-blue/50 text-pastel-purpleDark transition">V.4 (Jugame)</a>
+<a href="https://moonpink.cozyw75.workers.dev/" target="
+blank" class="block
+_
+w-full text-center py-2 px-4 bg-pastel-blueLight hover:bg-white rounded-xl border
+border-pastel-blue/50 text-pastel-purpleDark transition">V.5 (Moonpink)</a>
+<a href="https://shiny-thunder-d71e.cozyw75.workers.dev/" target="
+blank"
+_
+class="block w-full text-center py-2 px-4 bg-pastel-blueLight hover:bg-white rounded-xl
+border border-pastel-blue/50 text-pastel-purpleDark transition">V.6 (Shiny Thunder)</a>
+<a href="https://blue.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-blueLight hover:bg-white rounded-xl border
+border-pastel-blue/50 text-pastel-purpleDark transition">V.7 (Blue)</a>
+<a href="https://lix.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-blueLight hover:bg-white rounded-xl border
+border-pastel-blue/50 text-pastel-purpleDark transition">V.8 (Lix)</a>
+</div>
+</div>
+</div>
+<!-- Modal: โทนพาสเทล -->
+<div id="modal-pastel" class="modal-overlay fixed inset-0 bg-pastel-purpleDark/40 z-50
+flex items-center justify-center p-4">
+<div class="modal-content card-kawaii w-full max-w-sm p-6 relative">
+<button onclick="closeModal('modal-pastel')" class="absolute -top-3 -right-3 bg-white
+border-2 border-pastel-purple text-pastel-purple rounded-full w-8 h-8 flex items-center
+justify-center shadow-md hover:bg-pastel-purpleLight focus:outline-none">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path
+stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12
+12"></path></svg>
+</button>
+<h3 class="font-eng text-xl text-center text-kawaii-highlight font-bold mb-4 flex
+items-center justify-center gap-2">
+<svg class="w-4 h-4 text-pastel-purple" viewBox="0 0 24 24"><use
+href="#icon-heart"></use></svg> โทนพาสเทล
+</h3>
+<div class="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+<a href="https://wish-uwu.cozyw75.workers.dev/" target="
+blank" class="block
+_
+w-full text-center py-2 px-4 bg-pastel-purpleLight hover:bg-white rounded-xl border
+border-pastel-purple/50 text-pastel-purpleDark transition">V.1 (Wish uwu)</a>
+<a href="https://regal-torrone-46c94f.netlify.app/" target="
+blank" class="block
+_
+w-full text-center py-2 px-4 bg-pastel-purpleLight hover:bg-white rounded-xl border
+border-pastel-purple/50 text-pastel-purpleDark transition">V.2 (Regal Torrone)</a>
+<a href="https://cawaei.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-purpleLight hover:bg-white rounded-xl border
+border-pastel-purple/50 text-pastel-purpleDark transition">V.3 (Cawaei)</a>
+<a href="https://meww.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-purpleLight hover:bg-white rounded-xl border
+border-pastel-purple/50 text-pastel-purpleDark transition">V.4 (Meww)</a>
+<a href="https://duduw.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-purpleLight hover:bg-white rounded-xl border
+border-pastel-purple/50 text-pastel-purpleDark transition">V.5 (Duduw)</a>
+<a href="https://pinks.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-purpleLight hover:bg-white rounded-xl border
+border-pastel-purple/50 text-pastel-purpleDark transition">V.6 (Pinks)</a>
+<a href="https://small-wind-001f.cozyw75.workers.dev/" target="
+blank"
+_
+class="block w-full text-center py-2 px-4 bg-pastel-purpleLight hover:bg-white rounded-xl
+border border-pastel-purple/50 text-pastel-purpleDark transition">V.7 (Small Wind)</a>
+<a href="https://sweetie.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-purpleLight hover:bg-white rounded-xl border
+border-pastel-purple/50 text-pastel-purpleDark transition">V.8 (Sweetie)</a>
+<a href="https://pmju.cozyw75.workers.dev/" target="
+blank" class="block w-full
+_
+text-center py-2 px-4 bg-pastel-purpleLight hover:bg-white rounded-xl border
+border-pastel-purple/50 text-pastel-purpleDark transition">V.9 (Pmju)</a>
+</div>
+</div>
+</div>
+<!-- Interactive Scripts -->
+<script>
+// Sidebar logic
+function toggleSidebar() {
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('sidebar-overlay');
+if (sidebar.classList.contains('
+-translate-x-full')) {
+// Open
+sidebar.classList.remove('
+-translate-x-full');
+overlay.classList.remove('opacity-0'
+,
+'invisible');
+overlay.classList.add('opacity-100'
+,
+'visible');
+document.body.style.overflow = 'hidden';
+} else {
+// Close
+sidebar.classList.add('
+-translate-x-full');
+overlay.classList.remove('opacity-100'
+,
+'visible');
+overlay.classList.add('opacity-0'
+,
+'invisible');
+document.body.style.overflow = 'auto';
+}
+}
+// Modal logic
+function openModal(modalId) {
+const modal = document.getElementById(modalId);
+modal.classList.add('active');
+document.body.style.overflow = 'hidden';
+}
+function closeModal(modalId) {
+const modal = document.getElementById(modalId);
+modal.classList.remove('active');
+document.body.style.overflow = 'auto';
+}
+// Close modal when clicking outside
+window.onclick = function(event) {
+if (event.target.classList.contains('modal-overlay')) {
+event.target.classList.remove('active');
+document.body.style.overflow = 'auto';
+}
+}
+</script>
+</body>
+</html>
